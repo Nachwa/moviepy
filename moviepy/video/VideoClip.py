@@ -1101,9 +1101,11 @@ class TextClip(ImageClip):
                  tempfilename=None, temptxt=None,
                  transparent=True, remove_temp=True,
                  print_cmd=False):
-
+      
         if txt is not None:
-            if temptxt is None:
+          if txt == '':
+            raise Exception("Moviepy:Error! 'txt' can not be an empty string '' ")
+          elif temptxt is None:
                 temptxt_fd, temptxt = tempfile.mkstemp(suffix='.txt')
                 try:  # only in Python3 will this work
                     os.write(temptxt_fd, bytes(txt, 'UTF8'))
@@ -1113,8 +1115,8 @@ class TextClip(ImageClip):
             txt = '@' + temptxt
         else:
             # use a file instead of a text.
-            txt = "@%" + filename
-
+            txt = "@%" + filename      
+      
         if size is not None:
             size = ('' if size[0] is None else str(size[0]),
                     '' if size[1] is None else str(size[1]))
