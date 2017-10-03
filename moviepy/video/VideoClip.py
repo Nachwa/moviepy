@@ -1103,7 +1103,9 @@ class TextClip(ImageClip):
                  print_cmd=False):
 
         if txt is not None:
-            if temptxt is None:
+          if txt == '':
+            raise Exception("Moviepy:Error! 'txt' can not be an empty string '' ")
+          elif temptxt is None:
                 temptxt_fd, temptxt = tempfile.mkstemp(suffix='.txt')
                 try:  # only in Python3 will this work
                     os.write(temptxt_fd, bytes(txt, 'UTF8'))
